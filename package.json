@@ -1,0 +1,22 @@
+{
+  "name": "gblike",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazygyu/gblike.git"
+  },
+  "author": "lazygyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lazygyu/gblike/issues"
+  },
+  "homepage": "https://github.com/lazygyu/gblike#readme",
+  "devDependencies": {
+    "ts-loader": "^3.1.1"
+  }
+}

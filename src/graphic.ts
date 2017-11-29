@@ -10,7 +10,7 @@ export class Sprite{
   height: number;
   length : number;
   data : Array<number>;
-  constructor(opt) {
+  constructor(opt:any) {
     this.width = opt.width;
     this.height = opt.height;
     this.length = opt.width * opt.height;
@@ -24,14 +24,14 @@ export class GameObject {
   width: number;
   height: number;
 
-  constructor(opt) {
+  constructor(opt:any) {
     this.x = opt.x | 0;
     this.y = opt.y | 0;
     this.width = opt.width | 0;
     this.height = opt.height | 0;
   }
 
-  hasCollision(obj) : boolean {
+  hasCollision(obj:GameObject) : boolean {
     const tR: number = this.x + this.width,
       oR:number = obj.x + obj.width,
       tB: number = this.y + this.height,
@@ -47,7 +47,7 @@ export class Screen{
   width: number;
   height: number;
 
-  constructor(canv) {
+  constructor(canv:HTMLCanvasElement) {
     this.canvas = canv? canv : document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
     this.buffer = null;
@@ -58,6 +58,14 @@ export class Screen{
   beginScene() {
     this.buffer = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
     this.buffer.data.fill(255);
+  }
+
+  fill(c:number) {
+    for (let i: number = 0, l: number = this.buffer.data.length; i < l; i += 4){
+      this.buffer.data[i] = Colors[c].r;
+      this.buffer.data[i+1] = Colors[c].g;
+      this.buffer.data[i+2] = Colors[c].b;
+    }
   }
 
   endScene() {

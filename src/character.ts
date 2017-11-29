@@ -1,4 +1,4 @@
-import { Colors, GameObject, Sprite } from './graphic.js';
+import { Colors, GameObject, Sprite, Screen } from './graphic.js';
 
 enum CharacterState  {
   idle,
@@ -22,7 +22,7 @@ class Character extends GameObject {
   private elapsed: number = 0;
 
   constructor() {
-    super();
+    super({});
     this.x = 0;
     this.y = 0;
     this.state = CharacterState.idle;
@@ -32,5 +32,5 @@ class Character extends GameObject {
     this.elapsed += delta;
   }
 
-  render(screen){}
+  render(scr:Screen){}
 }
