@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,26 @@
   <title>Document</title>
   <script src="./game.js"></script>
   <style>
-    html, body { margin:0; padding:0; }
-    #canv { width:100%; }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #canv {
+      image-rendering: optimizeSpeed;
+      image-rendering: -moz-pixelated;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -o-pixelated;
+      -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: pixelated;
+      width:100%;
+    }
   </style>
 </head>
+
 <body>
   <canvas id="canv" width="160" height="144"></canvas>
+  <span id="log"></span>
 </body>
 </html>

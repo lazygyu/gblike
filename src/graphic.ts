@@ -53,6 +53,9 @@ export class Screen{
     this.buffer = null;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
+    this.ctx.webkitImageSmoothingEnabled = false;
+    this.ctx.mozImageSmoothingEnabled = false;
+    this.ctx.imageSmoothingEnabled = false;
   }
 
   beginScene() {
@@ -68,12 +71,66 @@ export class Screen{
     }
   }
 
+  line(x1: number, y1: number, x2: number, y2: number, c:number) {
+    const dx: number = Math.abs(x2 - x1);
+    const dy: number = Math.abs(y2 - y1);
+    let inc_2dy: number, inc_2dydx: number, inc_value: number, ndx: number, p_value: number;
+    if (dy <= dx) {
+      inc_2dy = 2 * dy;
+      inc_2dydx = 2 * (dy - dx);
+      if (x2 < x1) {
+        ndx = x1;
+        x1 = x2;
+        x2 = ndx;
+
+        ndx = y1;
+        y1 = y2;
+        y2 = ndx;
+      }
+      inc_value =  (y1 < y2) ? 1 : -1;
+      this.putPixel(x1, y1, c);
+      p_value = 2 * dy - dx;
+      for (ndx = x1; ndx < x2; ndx++){
+        if (0 > p_value) p_value += inc_2dy;
+        else {
+          p_value += inc_2dydx;
+          y1 += inc_value;
+        }
+        this.putPixel(ndx, y1, c);
+      }
+    } else {
+      inc_2dy = 2 * dx;
+      inc_2dydx = 2 * (dx - dy);
+      if (y2 < y1) {
+        ndx = y1;
+        y1 = y2;
+        y2 = ndx;
+
+        ndx = x1;
+        x1 = x2;
+        x2 = ndx;
+      }
+      inc_value = (x1 < x2) ? 1 : -1;
+      this.putPixel(x1, y1, c);
+      p_value = 2 * dx - dy;
+      for (ndx = y1; ndx < y2; ndx++){
+        if (0 > p_value) p_value += inc_2dy;
+        else {
+          p_value += inc_2dydx;
+          x1 += inc_value;
+        }
+        this.putPixel(x1, ndx, c);
+      }
+    }
+  }
+
   endScene() {
     this.ctx.putImageData(this.buffer, 0, 0);
   }
 
 
   putPixel(x:number, y:number, c:number) {
+    if (x < 0 || x >= this.width || y < 0 || y >= this.height) return;
     const t:number = (x + (y * this.buffer.width)) * 4;
     this.buffer.data[t] = Colors[c].r;
     this.buffer.data[t+1] = Colors[c].g;
