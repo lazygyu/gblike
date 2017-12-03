@@ -1,9 +1,17 @@
 {
   "compilerOptions": {
-    "outDir": "./static",
+    "outDir": "./dist",
     "noImplicitAny": true,
-    "module": "es6",
+    "module": "commonjs",
+    "sourceMap":true,
     "target": "es5",
-    "allowJs": true
-  }
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

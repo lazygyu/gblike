@@ -1,9 +1,9 @@
-import { Screen } from './graphic.ts';
+import { Screen } from './graphic';
 
-let scr = null;
-let t = null;
+let scr:Screen;
+let t:any = null;
 
-function update(time) {
+function update(time:number) {
   const ang = ((time / 50) % 360) * (Math.PI / 180);
   scr.beginScene();
   scr.fill(0);
@@ -14,7 +14,7 @@ function update(time) {
 }
 
 window.onload = () => {
-  scr = new Screen(document.querySelector('#canv'));
+  scr = new Screen(document.querySelector('#canv') as HTMLCanvasElement);
   t = document.querySelector('#log');
   requestAnimationFrame(update);
 }

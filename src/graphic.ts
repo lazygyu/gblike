@@ -43,14 +43,14 @@ export class GameObject {
 export class Screen{
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  buffer: ImageData;
+  buffer?: ImageData;
   width: number;
   height: number;
 
   constructor(canv:HTMLCanvasElement) {
     this.canvas = canv? canv : document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.buffer = null;
+    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+    this.buffer = undefined;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.ctx.webkitImageSmoothingEnabled = false;
@@ -64,10 +64,12 @@ export class Screen{
   }
 
   fill(c:number) {
-    for (let i: number = 0, l: number = this.buffer.data.length; i < l; i += 4){
-      this.buffer.data[i] = Colors[c].r;
-      this.buffer.data[i+1] = Colors[c].g;
-      this.buffer.data[i+2] = Colors[c].b;
+    if (this.buffer) {
+      for (let i: number = 0, l: number = this.buffer.data.length; i < l; i += 4) {
+        this.buffer.data[i] = Colors[c].r;
+        this.buffer.data[i + 1] = Colors[c].g;
+        this.buffer.data[i + 2] = Colors[c].b;
+      }
     }
   }
 
@@ -125,12 +127,12 @@ export class Screen{
   }
 
   endScene() {
-    this.ctx.putImageData(this.buffer, 0, 0);
+    if (this.buffer) this.ctx.putImageData(this.buffer, 0, 0);
   }
 
 
   putPixel(x:number, y:number, c:number) {
-    if (x < 0 || x >= this.width || y < 0 || y >= this.height) return;
+    if (x < 0 || x >= this.width || y < 0 || y >= this.height || !this.buffer) return;
     const t:number = (x + (y * this.buffer.width)) * 4;
     this.buffer.data[t] = Colors[c].r;
     this.buffer.data[t+1] = Colors[c].g;

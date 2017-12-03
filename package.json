@@ -2,7 +2,7 @@
   "name": "gblike",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/spriteEditor.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/lazygyu/gblike#readme",
   "devDependencies": {
-    "ts-loader": "^3.1.1"
+    "@types/electron": "^1.6.10",
+    "@types/node": "^8.0.53",
+    "electron": "^1.7.9",
+    "ts-loader": "^3.1.1",
+    "typescript": "^2.6.2",
+    "tslint":"^5.8.0"
   }
 }
